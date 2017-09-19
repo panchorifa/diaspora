@@ -1,15 +1,39 @@
-## Step 1. Chromeless Proxy
+# Diaspora Stream
 
-Starting with a chromeless proxy deployed to aws lambda
+Python cli to retrieve diaspora stream for a given user
+
+## CLI can be used to...
+
+* Crawl stream posts
+* Retrieve stats for the last 100 stream posts
+
+### Examples
+
+* python diaspora-cli.py stream
+* python diaspora-cli.py stats
 
 
-## Step 2. Lambda Scraper/Api
+## Contents
+1. [How it works](#how-it-works)
+1. [Installation](#installation)
+1. [Configuring Development Environment](#configuring-development-environment)
+1. [FAQ](#faq)
 
-Exposing data with another aws lamda deployment that
-authenticates and scrapes data
+
+## How it works
+
+explanation
+
+## Installation
+
+explanation
 
 
-## Step 3. Python cli and api/integration tests
+## Configuring Development Environment
 
-Expose stream data from command line and verify things
-with integration tests from this service
+explanation
+
+
+## FAQ
+
+explanation
