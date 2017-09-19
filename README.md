@@ -35,7 +35,7 @@ In order to use the python cli from your local machine, you need to have the scr
 
 ### Remote Chromeless Browser Setup
 
-1. Running Chrome on AWS Lambda and controlling it remotely
+1. Run Chrome on AWS Lambda and control it remotely.
 [Follow these instructions](https://github.com/graphcool/chromeless/tree/master/serverless#setup)
 
 ### Local Scraper Usage
@@ -72,10 +72,13 @@ python diaspora-cli stream -l 100
 
 We can also run stats to find out the most active author in the last 100 posts.
 
+![](http://github.com/panchorifa/diaspora/docs/stream.png)
+
 ```sh
 python diaspora-cli stats
 ```
 
+![](http://github.com/panchorifa/diaspora/docs/stats.png)
 
 
 
