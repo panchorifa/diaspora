@@ -18,16 +18,26 @@ Python cli to retrieve diaspora stream for a given user
 1. [Installation](#installation)
 1. [Configuring Development Environment](#configuring-development-environment)
 1. [FAQ](#faq)
+1. [TODO](#todo)
 
 
 ## How it works
 
-explanation
+With Chromeless proxy on AWS Lambda, you can crawl or test multiple sites in parallel. The scraper/api is also on AWS Lambda and provides all the advantages
+of serverless architectures with resource cost reduction, etc.
+
 
 ## Installation
 
-explanation
+1. Run Chrome on AWS Lambda and control it remotely.
+[Follow these instructions](https://github.com/graphcool/chromeless/tree/master/serverless#setup)
 
+1. Run scraper on AWS Lambda and invoke it from python cli
+```sh
+cd scraper
+npm install
+sls deploy
+```
 
 ## Configuring Development Environment
 
@@ -72,16 +82,23 @@ python diaspora-cli stream -l 100
 
 We can also run stats to find out the most active author in the last 100 posts.
 
-![](http://github.com/panchorifa/diaspora/docs/stream.png)
+![](https://github.com/panchorifa/diaspora/blob/master/docs/stream.png)
 
 ```sh
 python diaspora-cli stats
 ```
 
-![](http://github.com/panchorifa/diaspora/docs/stats.png)
+![](https://github.com/panchorifa/diaspora/blob/master/docs/stats.png)
 
 
 
 ## FAQ
 
 Coming soon
+
+
+## TODO
+
+* Configure chromeless server to use SOCKS5 proxy
+* Support different user credentials by expecting basic authentication from api
+* Add more tests to cover all types of posts, including images, etc
