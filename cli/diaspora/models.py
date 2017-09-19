@@ -2,6 +2,7 @@
 diaspora models
 """
 import datetime
+import operator
 
 
 class StreamPost(object):
@@ -34,3 +35,31 @@ class Stream(object):
         for post in self.posts:
             print post
         return "="*120
+
+
+class Stats(object):
+    def __init__(self, res):
+        posts = res.json()['body']['stream']
+        self.posts = [StreamPost(post) for post in posts]
+        self.stats = {}
+        for post in self.posts:
+            if post.author not in self.stats:
+                self.stats[post.author] = []
+            self.stats[post.author].append(post)
+
+    def __str__(self):
+        print "\n\n="*80
+        print '{} {}'.format(
+            'author'.rjust(55),
+            'posts'.rjust(15))
+        print "="*80
+
+        unsorted = {author: len(posts) for author, posts in self.stats.iteritems()}
+        sortedStats = sorted(unsorted.iteritems(),
+                        key=operator.itemgetter(1), reverse=True)
+        for author, posts in sortedStats:
+            print "{} {}".format(
+                        author.rjust(55),
+             "{}".format(posts).rjust(15)
+            )
+        return "="*80
