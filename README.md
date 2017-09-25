@@ -114,7 +114,10 @@ and verification processes.
 
 
 
+
 __Components Diagram__
+
+---------------------------------------
 
 ![](https://github.com/panchorifa/diaspora/blob/master/docs/components.png)
 
@@ -122,9 +125,9 @@ __Components Diagram__
 
 
 
-Sequence of Events for the different components.
+__Sequence of Events for the Different Components__
 
-__Sequence of Events__
+---------------------------------------
 
 ![](https://github.com/panchorifa/diaspora/blob/master/docs/sequence.png)
 
@@ -132,9 +135,9 @@ __Sequence of Events__
 
 
 
-Types of spiders to extract or verify data.
+__Types of Spiders to Extract or Verify Data__
 
-__Spider Types__
+---------------------------------------
 
 ![](https://github.com/panchorifa/diaspora/blob/master/docs/spiders.png)
 
