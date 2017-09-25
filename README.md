@@ -142,3 +142,11 @@ __Types of Spiders to Extract or Verify Data__
 ![](https://github.com/panchorifa/diaspora/blob/master/docs/spiders.png)
 
 ---------------------------------------
+
+__Interactive Crawler__
+
+---------------------------------------
+
+![](https://github.com/panchorifa/diaspora/blob/master/docs/interactive.png)
+
+---------------------------------------
