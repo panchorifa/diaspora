@@ -139,7 +139,7 @@ __Types of Spiders to Extract or Verify Data__
 
 ---------------------------------------
 
-![](https://github.com/panchorifa/diaspora/blob/master/docs/spiders.png)
+![](https://github.com/panchorifa/diaspora/blob/master/docs/spider-types.png)
 
 ---------------------------------------
 
