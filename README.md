@@ -1,11 +1,11 @@
-# Diaspora Stream
+# Diaspora Stream Crawler
 
-Python cli to retrieve diaspora stream for a given user
+Python CLI to crawl diaspora main stream for a given user with the help of a headless browser
 
 ## CLI can be used to...
 
-* Crawl stream posts
-* Retrieve stats for the last 100 stream posts
+* Crawl diaspora stream for any user
+* Provide diaspora stats for the last 100 posts
 
 ### Examples
 
@@ -19,6 +19,7 @@ Python cli to retrieve diaspora stream for a given user
 1. [Configuring Development Environment](#configuring-development-environment)
 1. [FAQ](#faq)
 1. [TODO](#todo)
+1. [Crawling System](#crawling-system)
 
 
 ## How it works
@@ -32,12 +33,14 @@ of serverless architectures with resource cost reduction, etc.
 1. Run Chrome on AWS Lambda and control it remotely.
 [Follow these instructions](https://github.com/graphcool/chromeless/tree/master/serverless#setup)
 
-1. Run scraper on AWS Lambda and invoke it from python cli
+1. Run scraper/api on AWS Lambda
 ```sh
 cd scraper
 npm install
 sls deploy
 ```
+
+1. Setup python cli to provide services/tools/analysis on diaspora data.
 
 ## Configuring Development Environment
 
@@ -74,19 +77,19 @@ pip install -r requirements.txt;pip install -r requirements_dev.txt;
 nosetests
 ```
 
-We can then retrieve last stream posts. It only retrieves the last 15 posts by default but you can specify a limit to increase the total number of posts.
+CLI to crawl last 15 stream posts. It supports a limit argument to crawl any number of posts.
 
 ```sh
 python diaspora-cli stream -l 100
 ```
-
-We can also run stats to find out the most active author in the last 100 posts.
 
 ![](https://github.com/panchorifa/diaspora/blob/master/docs/stream.png)
 
 ```sh
 python diaspora-cli stats
 ```
+
+CLI to find out the most active author in the last 100 posts.
 
 ![](https://github.com/panchorifa/diaspora/blob/master/docs/stats.png)
 
@@ -102,3 +105,21 @@ Coming soon
 * Configure chromeless server to use SOCKS5 proxy
 * Support different user credentials by expecting basic authentication from api
 * Add more tests to cover all types of posts, including images, etc
+
+
+### Crawling System
+
+System to support crawling of different sites with configurable accounts, concurrency
+and verification processes.
+
+![](https://github.com/panchorifa/diaspora/blob/master/docs/components.png)
+
+
+Sequence of Events for the different components.
+
+![](https://github.com/panchorifa/diaspora/blob/master/docs/sequence.png)
+
+
+Types of spiders to extract or verify data.
+
+![](https://github.com/panchorifa/diaspora/blob/master/docs/spiders.png)
