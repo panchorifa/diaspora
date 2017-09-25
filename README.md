@@ -112,14 +112,30 @@ Coming soon
 System to support crawling of different sites with configurable accounts, concurrency
 and verification processes.
 
+
+
+__Components Diagram__
+
 ![](https://github.com/panchorifa/diaspora/blob/master/docs/components.png)
+
+---------------------------------------
+
 
 
 Sequence of Events for the different components.
 
+__Sequence of Events__
+
 ![](https://github.com/panchorifa/diaspora/blob/master/docs/sequence.png)
+
+---------------------------------------
+
 
 
 Types of spiders to extract or verify data.
 
+__Spider Types__
+
 ![](https://github.com/panchorifa/diaspora/blob/master/docs/spiders.png)
+
+---------------------------------------
