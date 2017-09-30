@@ -17,7 +17,7 @@ export default class Post extends React.Component {
       <div className={css(styles.post)}>
         <div className="d-flex justify-content-space-between">
           <div>{p.post_time}</div>
-          <div>{p.author_name}</div>
+          <div><a href={p.author_link}>{p.author_name}</a></div>
         </div>
         <div>{p.post_text}</div>
         <div>{p.post_tags}</div>

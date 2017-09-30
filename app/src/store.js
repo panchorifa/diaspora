@@ -1,26 +1,19 @@
 import { createStore, applyMiddleware } from 'redux'
 import { routerMiddleware } from 'react-router-redux'
+import { createEpicMiddleware } from 'redux-observable'
 import { createLogger } from 'redux-logger'
-import thunk from 'redux-thunk'
-import * as types from './constants/ActionTypes'
+import {reducers} from './reducers'
+import {epics} from './epics'
 
-
-export const reducer = (state = {
-    mode: 0
-  }, action) => {
-  switch (action.type) {
-    case types.SET_MODE: return { ...state, mode: action.mode }
-    default: return state
-  }
-}
+const epicMiddleware = createEpicMiddleware(epics)
 
 const middleware = applyMiddleware(
   createLogger(),
   routerMiddleware(),
-  thunk
+  epicMiddleware
 )
 
 export const store = createStore(
-  reducer,
+  reducers,
   middleware
 )

@@ -1,4 +1,5 @@
 import React from 'react'
+import {withRouter} from 'react-router-dom'
 import {loadStream} from '../actions'
 import Post from './Post'
 import Spinner from './Spinner'
@@ -11,14 +12,19 @@ const styles = StyleSheet.create({
   }
 })
 
-export default class Diaspora extends React.Component {
+class Diaspora extends React.Component {
   constructor(props) {
     super(props)
     this.state = {stream: null}
   }
   async componentWillMount() {
     console.log('Loading Stream...')
-    const stream = await loadStream()
+    let q = this.props.location.search
+    if(q && q.indexOf('?limit=')>-1){
+      q = parseInt(q.substring(7))
+    }
+    console.log(q)
+    const stream = await loadStream(q)
     console.log(stream)
     this.setState({stream: stream})
   }
@@ -39,3 +45,5 @@ export default class Diaspora extends React.Component {
     )
   }
 }
+
+export default withRouter(Diaspora)

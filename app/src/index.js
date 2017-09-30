@@ -7,6 +7,11 @@ import App from './App'
 import registerServiceWorker from './registerServiceWorker'
 import './index.css'
 
+
+import 'font-awesome/css/font-awesome.min.css'
+import 'simple-line-icons/css/simple-line-icons.css'
+
+
 ReactDOM.render(
   <Router>
     <Provider store={store}>

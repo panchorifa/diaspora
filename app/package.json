@@ -4,13 +4,16 @@
   "private": true,
   "dependencies": {
     "aphrodite": "1.2.1",
+    "font-awesome": "^4.7.0",
     "lodash": "4.17.4",
     "material-design-icons": "3.0.1",
     "material-ui": "0.18.4",
     "react": "^15.6.1",
+    "react-async-script": "0.9.1",
     "react-bootstrap": "0.31.0",
     "react-dom": "^15.6.1",
     "react-fontawesome": "1.6.1",
+    "react-google-recaptcha": "0.9.7",
     "react-motion": "0.5.0",
     "react-popup": "0.8.0",
     "react-redux": "5.0.5",
@@ -24,13 +27,15 @@
     "react-tap-event-plugin": "2.0.1",
     "react-waypoint": "7.0.3",
     "redux": "3.7.0",
-    "redux-thunk": "2.2.0",
+    "redux-observable": "0.16.0",
+    "rxjs": "5.4.3",
     "reselect": "3.0.1",
+    "simple-line-icons": "^2.4.1",
     "whatwg-fetch": "^2.0.3"
   },
   "devDependencies": {
-    "workbox-build": "0.0.2",
-    "redux-logger": "3.0.6"
+    "redux-logger": "3.0.6",
+    "workbox-build": "0.0.2"
   },
   "scripts": {
     "start": "react-scripts start",

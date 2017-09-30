@@ -1,7 +1,7 @@
 import React from 'react'
 import Diaspora from '../components/Diaspora'
 
-export default class Home extends React.Component {
+export default class DiasporaStream extends React.Component {
   render() {
     return (
       <Diaspora/>
