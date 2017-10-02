@@ -1,0 +1,32 @@
+{
+  "env": {
+    "dev": {
+
+    },
+    "test": {
+
+    },
+    "prod": {
+
+    }
+  },
+  "api": {
+    "v1": {
+      "message": "CSpiders api",
+      "links": {
+        "spiders": {
+          "create": {
+            "desc": "Create a spider",
+            "method": "POST",
+            "url": "https://api.cspiders.com/v1/spiders"
+          },
+          "read": {
+            "desc": "Fetch all spiders",
+            "method": "GET",
+            "url": "https://api.cspiders.com/v1/spiders"
+          }
+        }
+      }
+    }
+  }
+}

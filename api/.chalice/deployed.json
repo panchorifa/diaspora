@@ -1,0 +1,12 @@
+{
+  "dev": {
+    "region": "us-west-2",
+    "api_handler_name": "crawlers_api-dev",
+    "api_handler_arn": "arn:aws:lambda:us-west-2:751944824385:function:crawlers_api-dev",
+    "rest_api_id": "5tnor1m6x8",
+    "lambda_functions": {},
+    "chalice_version": "1.0.3",
+    "api_gateway_stage": "api",
+    "backend": "api"
+  }
+}
