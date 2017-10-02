@@ -4,23 +4,21 @@ import * as diaspora from './diaspora-lib'
 const USERNAME = process.env.DIASPORA_USERNAME
 const PASSWORD = process.env.DIASPORA_PASSWORD
 
+const CHROMELESS_OPTIONS = {
+  remote: true,
+  scrollBeforeClick: true,
+  implicitWait: true
+}
+
 export async function scrapeStream(limit, offset) {
-  const chromeless = new Chromeless({remote: true,
-    scrollBeforeClick: true, implicitWait: true})
+  const chromeless = new Chromeless(CHROMELESS_OPTIONS)
 
   if(await diaspora.login(chromeless, USERNAME, PASSWORD)) {
     console.log('Successfully logged in!')
 
-    let pageLimit = limit
-    if(offset > 0) {
-      pageLimit += offset
-    }
-    await diaspora.paginate(chromeless, pageLimit)
+    await diaspora.paginate(chromeless, offset+limit)
 
-    let stream = await diaspora.stream(chromeless)
-    if(stream.length > limit) {
-      stream = stream.slice(offset, (offset+limit))
-    }
+    let stream = await diaspora.stream(chromeless, limit, offset)
     console.log("Found "+stream.length+" posts.")
 
     await chromeless.end()
@@ -30,4 +28,4 @@ export async function scrapeStream(limit, offset) {
   return {error: 'Unable to login!'}
 }
 
-// scrapeStream()
+scrapeStream(3)

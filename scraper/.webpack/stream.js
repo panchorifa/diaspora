@@ -145,55 +145,46 @@
 
 	var scrapeStream = exports.scrapeStream = function () {
 	  var _ref = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee(limit, offset) {
-	    var chromeless, pageLimit, stream;
+	    var chromeless, stream;
 	    return _regenerator2.default.wrap(function _callee$(_context) {
 	      while (1) {
 	        switch (_context.prev = _context.next) {
 	          case 0:
-	            chromeless = new _chromeless2.default({ remote: true,
-	              scrollBeforeClick: true, implicitWait: true });
+	            chromeless = new _chromeless2.default(CHROMELESS_OPTIONS);
 	            _context.next = 3;
 	            return diaspora.login(chromeless, USERNAME, PASSWORD);
 
 	          case 3:
 	            if (!_context.sent) {
-	              _context.next = 17;
+	              _context.next = 14;
 	              break;
 	            }
 
 	            console.log('Successfully logged in!');
 
-	            pageLimit = limit;
+	            _context.next = 7;
+	            return diaspora.paginate(chromeless, offset + limit);
 
-	            if (offset > 0) {
-	              pageLimit += offset;
-	            }
+	          case 7:
 	            _context.next = 9;
-	            return diaspora.paginate(chromeless, pageLimit);
+	            return diaspora.stream(chromeless, limit, offset);
 
 	          case 9:
-	            _context.next = 11;
-	            return diaspora.stream(chromeless);
-
-	          case 11:
 	            stream = _context.sent;
 
-	            if (stream.length > limit) {
-	              stream = stream.slice(offset, offset + limit);
-	            }
 	            console.log("Found " + stream.length + " posts.");
 
-	            _context.next = 16;
+	            _context.next = 13;
 	            return chromeless.end();
 
-	          case 16:
+	          case 13:
 	            return _context.abrupt('return', { stream: stream });
 
-	          case 17:
+	          case 14:
 	            console.log('Failed to log in!');
 	            return _context.abrupt('return', { error: 'Unable to login!' });
 
-	          case 19:
+	          case 16:
 	          case 'end':
 	            return _context.stop();
 	        }
@@ -205,9 +196,6 @@
 	    return _ref.apply(this, arguments);
 	  };
 	}();
-
-	// scrapeStream()
-
 
 	var _chromeless = __webpack_require__(4);
 
@@ -223,6 +211,14 @@
 
 	var USERNAME = process.env.DIASPORA_USERNAME;
 	var PASSWORD = process.env.DIASPORA_PASSWORD;
+
+	var CHROMELESS_OPTIONS = {
+	  remote: true,
+	  scrollBeforeClick: true,
+	  implicitWait: true
+	};
+
+	scrapeStream(3);
 
 /***/ }),
 /* 4 */
@@ -314,14 +310,15 @@
 
 	var stream = exports.stream = function () {
 	  var _ref3 = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee3(chromeless) {
-	    var offset = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
-	    var limit = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 100;
+	    var limit = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 15;
+	    var offset = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0;
+	    var posts;
 	    return _regenerator2.default.wrap(function _callee3$(_context3) {
 	      while (1) {
 	        switch (_context3.prev = _context3.next) {
 	          case 0:
 	            _context3.next = 2;
-	            return chromeless.evaluate(function (offset, limit) {
+	            return chromeless.evaluate(function () {
 
 	              var POST_SELECTOR = '#main_stream .stream-element';
 	              var POST_AUTHOR_SELECTOR = POST_SELECTOR + ' .post-controls';
@@ -333,18 +330,18 @@
 	              var POST_LIKES_SUFFIX = ' Like';
 	              var POST_RESHARES_SUFFIX = ' Reshare';
 
-	              function parsePostText(i) {
+	              function postText(i) {
 	                return document.querySelectorAll(POST_TEXT_SELECTOR)[i].innerText;
 	              }
 
-	              function parsePostTime(i) {
+	              function postTime(i) {
 	                var el = document.querySelectorAll(POST_TIME_SELECTOR)[i];
 	                var html = el.children[0].innerHTML;
 	                var idx = html.indexOf('datetime=') + 10;
 	                return html.substring(idx, idx + 24);
 	              }
 
-	              function parsePostTags(i) {
+	              function postTags(i) {
 	                var html = document.querySelectorAll(POST_CONTENT_SELECTOR)[i].innerHTML;
 	                var tags = [];
 	                html.replace(/[^<]*(<a href="([^"]+)" class="tag">([^<]+)<\/a>)/g, function () {
@@ -354,7 +351,7 @@
 	              }
 
 	              // Parses likes and reshares
-	              function parseOptionalInt(selector, i) {
+	              function optionalInt(selector, i) {
 	                var suffix = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
 
 	                var el = document.querySelectorAll(selector)[i];
@@ -365,33 +362,38 @@
 	                return 0;
 	              }
 
-	              function parseAuthor(i) {
+	              function author(i) {
 	                var author = document.querySelectorAll(POST_AUTHOR_SELECTOR)[i];
 	                return author.parentNode.children[1].children[0];
 	              }
 
-	              function parsePost(i) {
-	                var author = parseAuthor(i);
+	              function post(i) {
+	                var post_author = author(i);
 	                return {
-	                  author_name: author.innerText,
-	                  author_link: author.href,
-	                  post_time: parsePostTime(i),
-	                  post_text: parsePostText(i),
-	                  post_tags: parsePostTags(i),
-	                  post_likes: parseOptionalInt(POST_LIKES_SELECTOR, i, POST_LIKES_SUFFIX),
-	                  post_reshares: parseOptionalInt(POST_RESHARES_SELECTOR, i, POST_RESHARES_SUFFIX)
+	                  author_name: post_author.innerText,
+	                  author_link: post_author.href,
+	                  post_time: postTime(i),
+	                  post_text: postText(i),
+	                  post_tags: postTags(i),
+	                  post_likes: optionalInt(POST_LIKES_SELECTOR, i, POST_LIKES_SUFFIX),
+	                  post_reshares: optionalInt(POST_RESHARES_SELECTOR, i, POST_RESHARES_SUFFIX)
 	                };
 	              }
 
 	              return [].map.call(document.querySelectorAll(POST_SELECTOR), function (el, i) {
-	                return parsePost(i);
+	                return post(i);
 	              });
 	            });
 
 	          case 2:
-	            return _context3.abrupt('return', _context3.sent);
+	            posts = _context3.sent;
 
-	          case 3:
+	            if (posts.length > limit) {
+	              posts = posts.slice(offset, offset + limit);
+	            }
+	            return _context3.abrupt('return', posts);
+
+	          case 5:
 	          case 'end':
 	            return _context3.stop();
 	        }

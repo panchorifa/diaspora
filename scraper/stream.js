@@ -14,5 +14,4 @@ export async function main(event, context, callback) {
     console.log(e)
     callback(null, failure({status: false}))
   }
-
 }
