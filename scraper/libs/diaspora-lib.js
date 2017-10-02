@@ -13,6 +13,7 @@ export async function login(chromeless, username, password) {
   .type(password, 'input#user_password')
   .click('input[name="commit"]')
   .wait(PAGE_TIMEOUT)
+
   return chromeless.exists('div#main_stream')
 }
 

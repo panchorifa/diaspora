@@ -28,6 +28,6 @@ export async function scrapeStream(limit, offset) {
   return {error: 'Unable to login!'}
 }
 
-// Uncomment to test/try locally
-// This auto-reloads after code updates, etc
+// Uncomment when trying code locally (sls webpack serve)
+// - this auto-reloads after code updates, etc
 // scrapeStream(3)

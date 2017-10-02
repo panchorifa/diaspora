@@ -63,6 +63,7 @@ export async function parse(chromeless, limit, offset) {
     document.querySelectorAll(POST_SELECTOR),
     (el, i) => (post(i))
   )
+
   if(posts.length > limit) { posts = posts.slice(offset, (offset+limit)) }
   return posts
  }, limit, offset))
