@@ -18,7 +18,7 @@ export async function scrapeStream(limit, offset) {
 
     await diaspora.paginate(chromeless, offset+limit)
 
-    let stream = await diaspora.stream(chromeless, limit, offset)
+    const stream = await diaspora.stream(chromeless, limit, offset)
     console.log("Found "+stream.length+" posts.")
 
     await chromeless.end()
@@ -28,4 +28,6 @@ export async function scrapeStream(limit, offset) {
   return {error: 'Unable to login!'}
 }
 
-scrapeStream(3)
+// Uncomment to test/try locally
+// This auto-reloads after code updates, etc
+// scrapeStream(3)
